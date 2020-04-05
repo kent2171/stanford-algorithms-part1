@@ -4,11 +4,12 @@
 package ru.kent2171.algorithms.stanford.part1;
 
 import org.testng.annotations.*;
+
 import static org.testng.Assert.*;
 
-public class AppTest {
+public class UnionFindAppTest {
     @Test public void appHasAGreeting() {
-        App classUnderTest = new App();
+        UnionFindApp classUnderTest = new UnionFindApp();
         assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
     }
 }
