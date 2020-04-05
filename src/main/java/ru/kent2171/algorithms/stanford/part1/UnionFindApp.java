@@ -6,16 +6,18 @@ package ru.kent2171.algorithms.stanford.part1;
 import java.lang.reflect.Constructor;
 import java.util.Scanner;
 
-import ru.kent2171.algorithms.stanford.part1.unionfind.AbstractUnionFindAlgo;
+import ru.kent2171.algorithms.stanford.part1.unionfind.AbstractUnionFind;
+import ru.kent2171.algorithms.stanford.part1.unionfind.QuickFind;
 
 public class UnionFindApp {
 
     public static void main(String[] args) throws Exception {
-        Constructor<?> constructor = UnionFindApp.class.getClassLoader().loadClass(args[0]).getDeclaredConstructors()[0];
+        Constructor<?> constructor =
+            UnionFindApp.class.getClassLoader().loadClass(args[0]).getDeclaredConstructors()[0];
 
         try (Scanner scanner = new Scanner(System.in)) {
             System.out.println("enter number of elements:");
-            AbstractUnionFindAlgo uf = (AbstractUnionFindAlgo) constructor.newInstance(scanner.nextInt());
+            AbstractUnionFind uf = getInstance(args[0], scanner.nextInt());
             while (true) {
                 System.out.println("enter first element:");
                 int p = scanner.nextInt();
@@ -35,5 +37,19 @@ public class UnionFindApp {
                 }
             }
         }
+    }
+
+    private static final AbstractUnionFind getInstance(String name, int size) {
+        UnionFindAlgoType algoType = UnionFindAlgoType.valueOf(name);
+        switch (algoType) {
+            case QUICK_FIND:
+                return new QuickFind(size);
+            default:
+                throw new UnsupportedOperationException(String.format("algo=%s is not supported yet", name));
+        }
+    }
+
+    private enum UnionFindAlgoType {
+        QUICK_FIND
     }
 }
