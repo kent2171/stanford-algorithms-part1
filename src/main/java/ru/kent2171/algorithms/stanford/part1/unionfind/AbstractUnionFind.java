@@ -2,7 +2,7 @@ package ru.kent2171.algorithms.stanford.part1.unionfind;
 
 public abstract class AbstractUnionFind {
 
-    private final int n;
+    protected final int n;
 
     public AbstractUnionFind(int n) {
         this.n = n;

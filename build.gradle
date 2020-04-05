@@ -39,3 +39,14 @@ test {
     // Use TestNG for unit tests
     useTestNG()
 }
+
+task runUnionFind(type: JavaExec) {
+    standardInput = System.in
+    standardOutput = System.out
+    group = "Execution"
+    description = "Run the union find algorithm"
+    classpath = sourceSets.main.runtimeClasspath
+    main = "ru.kent2171.algorithms.stanford.part1.UnionFindApp"
+}
+
+tasks.clean.dependsOn(tasks.runUnionFind)
