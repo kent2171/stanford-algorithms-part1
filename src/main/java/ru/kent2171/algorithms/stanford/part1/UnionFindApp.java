@@ -5,10 +5,13 @@ package ru.kent2171.algorithms.stanford.part1;
 
 import java.util.Scanner;
 
+import javax.xml.bind.SchemaOutputResolver;
+
 import ru.kent2171.algorithms.stanford.part1.unionfind.QuickUnion;
 import ru.kent2171.algorithms.stanford.part1.unionfind.UnionFindApi;
 import ru.kent2171.algorithms.stanford.part1.unionfind.QuickFind;
 import ru.kent2171.algorithms.stanford.part1.unionfind.WeightedQuickUnion;
+import ru.kent2171.algorithms.stanford.part1.unionfind.hw1.MaxElementSearch;
 
 public class UnionFindApp {
 
@@ -18,20 +21,32 @@ public class UnionFindApp {
             UnionFindApi uf = getInstance(args[0], scanner.nextInt());
 
             while (true) {
-                System.out.println("component #1:");
-                int p = scanner.nextInt();
+                System.out.println("enter type of the operation:");
+                System.out.println();
 
-                System.out.println("component #2:");
-                int q = scanner.nextInt();
+                String method = scanner.next();
+                if (method.equals("u")) {
+                    System.out.println("component #1:");
+                    int p = scanner.nextInt();
 
-                if (!uf.connected(p, q)) {
-                    uf.union(p, q);
+                    System.out.println("component #2:");
+                    int q = scanner.nextInt();
+
+                    if (!uf.connected(p, q)) {
+                        uf.union(p, q);
+                        System.out.println();
+                        System.out.println(String.format("union(%s, %s)", p, q));
+                    } else {
+                        System.out.println();
+                        System.out.println(String.format("(%s, %s) already connected", p, q));
+                    }
                     System.out.println();
-                    System.out.println(String.format("union(%s, %s)", p, q));
+                }
+
+                if (method.equals("f")) {
+                    System.out.println("component idx:");
                     System.out.println();
-                } else {
-                    System.out.println();
-                    System.out.println(String.format("(%s, %s) already connected", p, q));
+                    System.out.println(String.format("find result = %s", uf.find(scanner.nextInt())));
                     System.out.println();
                 }
             }
@@ -50,6 +65,8 @@ public class UnionFindApp {
                 return new QuickUnion(size);
             case WEIGHTED_QUICK_UNION:
                 return new WeightedQuickUnion(size);
+            case MAX_ELEM_SEARCH:
+                return new MaxElementSearch(size);
             default:
                 throw new UnsupportedOperationException(String.format("algo=%s is not supported yet", name));
         }
@@ -58,7 +75,7 @@ public class UnionFindApp {
     private enum UnionFindAlgoType {
         QUICK_FIND,
         QUICK_UNION,
-        WEIGHTED_QUICK_UNION
-
+        WEIGHTED_QUICK_UNION,
+        MAX_ELEM_SEARCH
     }
 }

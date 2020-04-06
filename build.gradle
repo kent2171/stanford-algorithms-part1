@@ -49,4 +49,4 @@ task runUnionFind(type: JavaExec) {
     main = "ru.kent2171.algorithms.stanford.part1.UnionFindApp"
 }
 
-tasks.clean.dependsOn(tasks.runUnionFind)
+//tasks.clean.dependsOn(tasks.runUnionFind)
